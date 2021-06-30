@@ -3,7 +3,7 @@ name: Deploy to Workers Prod
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
   HUGO_VERSION: 0.83.1
