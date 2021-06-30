@@ -1,0 +1,10 @@
+account_id = "69c736c51a7a73dccc0b83f75d3bedce"
+name = "workers-www-wp2hugo"
+type = "webpack"
+route = "wp2hugo.com/*"
+workers_dev = false
+zone_id = "6734ad4443563bb036979c4a8e0092cd"
+
+[site]
+bucket = "public"
+entry-point = "workers-site"

@@ -1,0 +1,39 @@
+name: Deploy to Workers Prod
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  HUGO_VERSION: 0.83.1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+        with:
+          submodules: 'true'
+
+      - name: Download Hugo
+        run: sudo wget https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_${{ env.HUGO_VERSION }}_Linux-64bit.deb
+
+      - name: Install Hugo
+        run: sudo dpkg -i hugo_${{ env.HUGO_VERSION }}_Linux-64bit.deb
+
+      - name: Download HTML Tidy
+        run: wget https://github.com/htacg/tidy-html5/releases/download/5.4.0/tidy-5.4.0-64bit.deb
+
+      - name: Install HTML Tidy
+        run: sudo dpkg -i tidy-5.4.0-64bit.deb
+
+      - name: Build
+        run: export PATH=$PATH:$(pwd)/bin && hugo --gc && find public -name '*.html' -type f -print -exec tidy -mq --tidy-mark no --wrap 0 --indent auto --indent-spaces 2 --quiet yes  '{}' \;
+
+      - uses: cloudflare/wrangler-action@1.2.0
+        env:
+          USER: root
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}

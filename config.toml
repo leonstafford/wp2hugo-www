@@ -1,0 +1,20 @@
+baseURL = "http://wp2hugo.com/"
+languageCode = "en-us"
+title = "WordPress to Hugo"
+theme = "accessible-minimalism"
+disableHugoGeneratorInject = true
+enableRobotsTXT = true
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "Guides"
+    url = "/guides/"
+    weight = 2
+  [[menu.main]]
+    name = "Tools"
+    url = "/tools/"
+    weight = 3
